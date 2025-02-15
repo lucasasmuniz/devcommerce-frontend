@@ -1,0 +1,16 @@
+.devc-btn-next-page{
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+    color: var(--devc-color-btn-primary);
+    border: 1px solid var(--devc-color-btn-primary);
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.devc-btn-next-page:hover{
+    background-color: var(--devc-color-btn-next-page-hover);
+    transition: 0.5s;
+}

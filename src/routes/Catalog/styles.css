@@ -1,0 +1,5 @@
+.devc-catalog-container{
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(225px,1fr));
+}
