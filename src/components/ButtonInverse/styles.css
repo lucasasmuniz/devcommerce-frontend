@@ -1,0 +1,11 @@
+
+.devc-btn-white{
+    color: var(--devc-color-btn-primary);
+    background-color: var(--devc-color-btn-inverse);
+    border: 1px solid var(--devc-color-btn-primary);
+}
+
+.devc-btn-white:hover{
+    background-color: var(--devc-color-btn-inverse-hover);
+    transition: 0.5s;
+}

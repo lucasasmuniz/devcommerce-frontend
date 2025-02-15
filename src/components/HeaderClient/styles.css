@@ -1,0 +1,4 @@
+.devc-header-client{
+    background-color: var(--devc-color-bg-secondary);
+    color: var(--devc-color-font-primary);
+}

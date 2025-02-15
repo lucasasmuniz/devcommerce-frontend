@@ -1,0 +1,10 @@
+
+.devc-btn-blue{
+    background-color: var(--devc-color-btn-primary);
+    color: var(--devc-color-font-tertiary);
+}
+
+.devc-btn-blue:hover{
+    background-color: var(--devc-color-btn-primary-hover);
+    transition: 0.5s;
+}
