@@ -1,7 +1,11 @@
 import "./styles.css";
 
-export default function ProductCategory() {
+type Props = {
+    name : String
+}
+
+export default function ProductCategory({name} : Props) {
     return(
-        <h2 className="devc-product-details-tags">Eletrônicos</h2>
+        <h2 className="devc-product-details-tags">{name}</h2>
     );
 }
