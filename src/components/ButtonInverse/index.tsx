@@ -1,7 +1,12 @@
 import "./styles.css";
 
-export default function ButtonInverse(){
+type Props = {
+    text : String
+}
+
+
+export default function ButtonInverse({text}:Props){
     return(
-        <div className="devc-btn devc-btn-white">Início</div>
+        <div className="devc-btn devc-btn-white">{text}</div>
     );
 }
