@@ -7,6 +7,21 @@ import { Link } from "react-router-dom";
 export default function Cart() {
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
 
+  function handleClearCart(){
+    cartService.clearCart();
+    setCart(cartService.getCart);
+  }
+
+  function handleIncreaseItem(productId : number){
+    cartService.increaseItem(productId);
+    setCart(cartService.getCart);
+  }
+
+  function handleDecreaseItem(productId : number){
+    cartService.decreaseItem(productId);
+    setCart(cartService.getCart);
+  }
+
   useEffect(() => {});
 
   return (
@@ -26,9 +41,9 @@ export default function Cart() {
                   <div className="devc-cart-product-name-quantity">
                     <h3>{item.name}</h3>
                     <div className="devc-cart-item-quantity-container">
-                      <span>-</span>
+                      <span onClick={() => handleDecreaseItem(item.productId)}>-</span>
                       <p>{item.quantity}</p>
-                      <span>+</span>
+                      <span onClick={() => handleIncreaseItem(item.productId)}>+</span>
                     </div>
                   </div>
                 </div>
@@ -38,7 +53,7 @@ export default function Cart() {
               </div>
             ))}
             <div className="devc-cart-total-price">
-              <h3>R$ {cart.total}</h3>
+              <h3>R$ {cart.total.toFixed(2)}</h3>
             </div>
           </div>
         )}
@@ -47,7 +62,7 @@ export default function Cart() {
           <Link to="/">
             <div className="devc-btn devc-btn-white">Continuar comprando</div>
           </Link>
-            <div className="devc-btn devc-btn-white">Limpar</div>
+            <div onClick={handleClearCart} className="devc-btn devc-btn-white">Limpar</div>
         </div>
       </section>
     </main>
