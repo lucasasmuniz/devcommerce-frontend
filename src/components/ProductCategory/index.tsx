@@ -1,7 +1,7 @@
 import "./styles.css";
 
 type Props = {
-    name : String
+    name : string
 }
 
 export default function ProductCategory({name} : Props) {

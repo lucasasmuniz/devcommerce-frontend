@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.css";
 import * as cartService from "../../../services/cart-service.ts";
 import { OrderDTO } from "../../../models/order.ts";
 import { Link } from "react-router-dom";
+import CardItemCard from "../../../components/CartItemsCard/index.tsx";
 
 export default function Cart() {
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
@@ -11,18 +12,6 @@ export default function Cart() {
     cartService.clearCart();
     setCart(cartService.getCart);
   }
-
-  function handleIncreaseItem(productId : number){
-    cartService.increaseItem(productId);
-    setCart(cartService.getCart);
-  }
-
-  function handleDecreaseItem(productId : number){
-    cartService.decreaseItem(productId);
-    setCart(cartService.getCart);
-  }
-
-  useEffect(() => {});
 
   return (
     <main>
@@ -35,22 +24,7 @@ export default function Cart() {
         ) : (
           <div className="devc-card">
             {cart.items.map((item) => (
-              <div className="devc-cart-product devc-line-bottom">
-                <div className="devc-cart-product-left">
-                  <img src={item.imgUrl} alt={item.name} />
-                  <div className="devc-cart-product-name-quantity">
-                    <h3>{item.name}</h3>
-                    <div className="devc-cart-item-quantity-container">
-                      <span onClick={() => handleDecreaseItem(item.productId)}>-</span>
-                      <p>{item.quantity}</p>
-                      <span onClick={() => handleIncreaseItem(item.productId)}>+</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="devc-cart-product-right">
-                  <h4>R$ {item.subTotal.toFixed(2)}</h4>
-                </div>
-              </div>
+              <CardItemCard product={item} setCart={setCart}/>
             ))}
             <div className="devc-cart-total-price">
               <h3>R$ {cart.total.toFixed(2)}</h3>

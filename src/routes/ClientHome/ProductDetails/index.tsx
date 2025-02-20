@@ -21,7 +21,7 @@ export default function ProductDetails() {
       .catch(() => {
         navigate("/");
       });
-  });
+  }, []);
 
   return (
     <main>
