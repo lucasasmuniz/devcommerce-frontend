@@ -4,6 +4,8 @@ import * as cartService from "../../../services/cart-service.ts";
 import { OrderDTO } from "../../../models/order.ts";
 import { Link } from "react-router-dom";
 import CardItemCard from "../../../components/CartItemsCard/index.tsx";
+import ButtonInverse from "../../../components/ButtonInverse/index.tsx";
+import ButtonPrimary from "../../../components/ButtonPrimary/index.tsx";
 
 export default function Cart() {
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
@@ -32,11 +34,13 @@ export default function Cart() {
           </div>
         )}
         <div className="devc-btn-container devc-mt-20">
-          <div className="devc-btn devc-btn-blue">Finalizar pedido</div>
+          <ButtonPrimary text={"Finalizar pedido"} />
           <Link to="/">
-            <div className="devc-btn devc-btn-white">Continuar comprando</div>
+            <ButtonInverse text={"Continuar comprando"} />
           </Link>
-            <div onClick={handleClearCart} className="devc-btn devc-btn-white">Limpar</div>
+          <div onClick={handleClearCart}>
+            <ButtonInverse text={"Limpar"} />
+          </div>
         </div>
       </section>
     </main>

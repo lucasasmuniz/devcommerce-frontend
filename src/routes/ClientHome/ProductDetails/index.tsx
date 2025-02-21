@@ -5,12 +5,18 @@ import ProductDetailsCard from "../../../components/ProductDetailsCard";
 import { ProductDTO } from "../../../models/product.ts";
 import { useEffect, useState } from "react";
 import * as productService from "../../../services/product-services.ts";
+import * as cartService from "../../../services/cart-service.ts"
 
 export default function ProductDetails() {
   const params = useParams();
   const navigate = useNavigate();
 
   const [product, setProduct] = useState<ProductDTO>();
+
+  function handleBuyProduct(product : ProductDTO) {
+    cartService.addProduct(product);
+    navigate("/cart");
+  }
 
   useEffect(() => {
     productService
@@ -33,7 +39,9 @@ export default function ProductDetails() {
           <>
             <ProductDetailsCard product={product} />
             <div className="devc-btn-container devc-mt-20">
-              <ButtonPrimary text={"Comprar"} product={product} />
+              <div onClick={() => handleBuyProduct(product)}>
+                <ButtonPrimary text={"Comprar"} />
+              </div>
               <Link to="/">
                 <ButtonInverse text={"Início"} />
               </Link>
