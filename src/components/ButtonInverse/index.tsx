@@ -1,7 +1,7 @@
 import "./styles.css";
 
 type Props = {
-    text : String
+    text : string
 }
 
 

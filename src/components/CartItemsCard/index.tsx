@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OrderItemDTO } from "../../models/order";
 import * as cartService from "../../services/cart-service.js"
 

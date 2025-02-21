@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
- 
 import { OrderDTO, OrderItemDTO } from "../models/order";
 import { CART_KEY } from "../utils/system";
 
