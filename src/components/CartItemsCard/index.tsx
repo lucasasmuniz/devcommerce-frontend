@@ -3,19 +3,19 @@ import * as cartService from "../../services/cart-service.js"
 
 type Props = {
   product: OrderItemDTO,
-  setCart : any
+  onCartItemChange : any
 };
 
-export default function CardItemCard({ product,setCart }: Props) {
+export default function CardItemCard({ product,onCartItemChange }: Props) {
     
   function handleIncreaseItem(productId : number){
     cartService.increaseItem(productId);
-    setCart(cartService.getCart);
+    onCartItemChange(cartService.getCart);
   }
 
   function handleDecreaseItem(productId : number){
     cartService.decreaseItem(productId);
-    setCart(cartService.getCart);
+    onCartItemChange(cartService.getCart);
   }
 
   return (
