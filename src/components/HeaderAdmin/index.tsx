@@ -2,6 +2,7 @@ import './styles.css';
 
 import stockImg from '../../assets/stock.svg';
 import homeImg from '../../assets/home.svg';
+import LoggedUser from '../LoggedUser';
 
 export default function HeaderAdmin() {
     return (
@@ -17,10 +18,7 @@ export default function HeaderAdmin() {
                     <img src={stockImg} alt="Carrinho de compras" />
                     <h4 className="devc-item-nav-name-admin">Produtos</h4>
                 </div>
-                <div className="devc-user-container">
-                    <p>Maria Silva</p>
-                    <h4>Sair</h4>
-                </div>
+                <LoggedUser />
             </div>
         </nav>
     </header>

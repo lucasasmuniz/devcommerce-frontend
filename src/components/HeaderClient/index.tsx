@@ -5,6 +5,7 @@ import iconAdmin from '../../assets/config.svg';
 import * as authService from "../../services/auth-service.ts";
 import { useContext } from 'react';
 import { ContextToken } from '../../utils/context-token.ts';
+import LoggedUser from '../LoggedUser/index.tsx';
 
 export default function HeaderClient() {
 
@@ -23,7 +24,7 @@ export default function HeaderClient() {
                         <img className="devc-item-nav devc-mr-20" src={iconAdmin} alt="Tela de Admin" />
                     }
                     <Link to="/cart"><CartIcon /></Link>
-                    <Link to="/login" className="devc-item-nav devc-sign-in-link">Entrar</Link>
+                    <LoggedUser />
                 </div>
             </nav>
         </header>
