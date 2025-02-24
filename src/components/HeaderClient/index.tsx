@@ -21,7 +21,9 @@ export default function HeaderClient() {
                     {
                         contextTokenPayload &&
                         authService.hasAnyRoles(['ROLE_ADMIN']) && 
-                        <img className="devc-item-nav devc-mr-20" src={iconAdmin} alt="Tela de Admin" />
+                        <Link to={"/admin"}>
+                            <img className="devc-item-nav devc-mr-20" src={iconAdmin} alt="Tela de Admin" />
+                        </Link>
                     }
                     <Link to="/cart"><CartIcon /></Link>
                     <LoggedUser />
