@@ -1,0 +1,5 @@
+
+.devc-header-admin{
+    background-color: var(--devc-color-bg-admin);
+    color: var(--devc-color-font-tertiary);
+}

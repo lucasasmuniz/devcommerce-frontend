@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './styles.css';
 import * as authService from '../../../services/auth-service.ts';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
     username:string,
@@ -8,6 +9,8 @@ type FormData = {
 }
 
 export default function Login() {
+
+    const navigate = useNavigate();
 
     const [formData,setFormData] = useState<FormData>({
         username: "",
@@ -18,7 +21,8 @@ export default function Login() {
         event.preventDefault();
         authService.loginRequest(formData)
             .then((response) => {
-                console.log(response.data);
+                authService.saveAccessToken(response.data.access_token);
+                navigate("/catalog");
             })
             .catch((error) => {
                 console.log("Erro na autorização", error);

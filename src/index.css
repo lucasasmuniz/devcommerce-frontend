@@ -102,11 +102,6 @@ header{
 
 }
 
-.devc-header-admin{
-    background-color: var(--devc-color-bg-admin);
-    color: var(--devc-color-font-tertiary);
-}
-
 .devc-header-client{
     background-color: var(--devc-color-bg-secondary);
     color: var(--devc-color-font-primary);
