@@ -11,7 +11,6 @@ export default function HomeBodyAdmin(){
             .then(response => {
                 setUser(response.data);
             })
-            .catch(error => {console.log("erro" , error)})
     }, [] )
 
     return(
