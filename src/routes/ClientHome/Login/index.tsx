@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './styles.css';
 import * as authService from '../../../services/auth-service.ts';
 import { useNavigate } from 'react-router-dom';
+import { ContextToken } from '../../../utils/context-token.ts';
 
 type FormData = {
     username:string,
@@ -17,11 +18,14 @@ export default function Login() {
         password: ""
     })
 
+    const {setContextTokenPayload} = useContext(ContextToken);
+
     function handleSubmit(event:any){
         event.preventDefault();
         authService.loginRequest(formData)
             .then((response) => {
                 authService.saveAccessToken(response.data.access_token);
+                setContextTokenPayload(authService.getAccessTokenPayload());
                 navigate("/catalog");
             })
             .catch((error) => {
