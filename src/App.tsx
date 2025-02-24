@@ -9,13 +9,14 @@ import Login from "./routes/ClientHome/Login";
 import HomeBodyAdmin from "./routes/AdminHome/HomeBodyAdmin";
 import AdminHome from "./routes/AdminHome";
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import {history} from './utils/history';
+import { history } from './utils/history';
+import { PrivateRoute } from "./components/PrivateRoute";
 
 export default function App() {
   const [contextCartCount, setContextCartCount] = useState<number>(0);
 
   return (
-    <ContextCartCount.Provider value={{contextCartCount, setContextCartCount}}>
+    <ContextCartCount.Provider value={{ contextCartCount, setContextCartCount }}>
       <HistoryRouter history={history}>
         <Routes>
           <Route path="/" element={<ClientHome />}>
@@ -28,7 +29,11 @@ export default function App() {
             <Route path="cart" element={<Cart />} />
             <Route path="login" element={<Login />} />
           </Route>
-          <Route path="/admin/" element={<AdminHome />}>
+          <Route path="/admin/" element={
+            <PrivateRoute>
+              <AdminHome />
+            </PrivateRoute>
+          }>
             <Route index element={<HomeBodyAdmin />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
