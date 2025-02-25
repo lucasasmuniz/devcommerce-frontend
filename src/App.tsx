@@ -44,14 +44,11 @@ export default function App() {
                 element={<ProductDetails />}
               />
               <Route path="cart" element={<Cart />} />
-              <Route path="confirmation/:orderId" element={<Confirmation />} />
+              <Route path="confirmation/:orderId" element={<PrivateRoute><Confirmation /></PrivateRoute>} />
               <Route path="login" element={<Login />} />
             </Route>
             <Route path="/admin/" element={
-              <PrivateRoute roles={["ROLE_ADMIN"]}>
-                <AdminHome />
-              </PrivateRoute>
-            }>
+              <PrivateRoute roles={["ROLE_ADMIN"]}><AdminHome /></PrivateRoute>}>
               <Route index element={<HomeBodyAdmin />} />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
