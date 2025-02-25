@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 import { ContextToken } from '../../utils/context-token';
 import * as authService from '../../services/auth-service.ts';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function LoggedUser() {
 
     const { contextTokenPayload, setContextTokenPayload } = useContext(ContextToken);
 
+    const navigate = useNavigate();
+
     function handleLogoutClick(){
         authService.logout();
         setContextTokenPayload(undefined);
+        navigate("/catalog")
     }
 
     return (

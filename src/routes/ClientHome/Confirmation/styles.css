@@ -1,0 +1,14 @@
+.devc-order-confirmation{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--devc-color-font-primary);
+}
+
+@media(min-width: 576px){
+
+    .devc-order-confirmation{
+        text-align: left;
+        font-size: 24px;
+    }
+}

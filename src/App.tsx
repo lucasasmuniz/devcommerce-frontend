@@ -15,6 +15,7 @@ import { AccessTokenPayloadDTO } from "./models/auth";
 import { ContextToken } from "./utils/context-token";
 import * as cartService from './services/cart-service.ts';
 import * as authService from './services/auth-service.ts';
+import Confirmation from "./routes/ClientHome/Confirmation/index.tsx";
 
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
                 element={<ProductDetails />}
               />
               <Route path="cart" element={<Cart />} />
+              <Route path="confirmation/:orderId" element={<Confirmation />} />
               <Route path="login" element={<Login />} />
             </Route>
             <Route path="/admin/" element={
