@@ -3,3 +3,7 @@
     background-color: var(--devc-color-bg-admin);
     color: var(--devc-color-font-tertiary);
 }
+
+.devc-active{
+    font-weight: 700;
+}
