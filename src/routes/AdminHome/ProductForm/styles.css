@@ -1,0 +1,50 @@
+.devc-product-form-container{
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.devc-form-btn-container{
+    width: 100%;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill,minmax(210px,1fr));
+}
+
+.devc-form-product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#product-form-description{
+    height: 128px;
+}
+
+.devc-form-product h2{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--devc-color-font-primary);
+    text-transform: uppercase;
+}
+
+.devc-form-border-error{
+    border: 1px solid var(---devc-color-input-error);
+}
+
+.devc-form-error{
+    font-size: 12px;
+    color: var(---devc-color-input-error);
+    margin-left: 4px;
+}
+
+@media(min-width:576px){
+    .devc-form-product h2{
+        font-size: 24px;
+    }
+
+    .devc-btn-form{
+        margin-top: 20px;
+    }
+}
