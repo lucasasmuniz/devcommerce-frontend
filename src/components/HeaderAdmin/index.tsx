@@ -4,12 +4,15 @@ import stockImg from '../../assets/stock.svg';
 import homeImg from '../../assets/home.svg';
 import LoggedUser from '../LoggedUser';
 import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function HeaderAdmin() {
     return (
         <header className="devc-header-admin">
             <nav className="devc-container">
-                <h1>DevCommerce</h1>
+                <Link to={"/"}>
+                    <h1>DevCommerce</h1>
+                </Link>
                 <div>
                     <NavLink to={"/admin/home"} className={({ isActive}) => isActive ? "devc-active" : ""}>
                         <div className="devc-cursor-click devc-mr-20">

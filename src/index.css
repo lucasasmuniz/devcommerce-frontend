@@ -304,3 +304,30 @@ main{
 .devc-table tbody tr{
     border-top: 1px solid var(--devc-color-card-border);
 }
+
+.devc-dialog-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.devc-dialog-card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 20px;
+    background-color: var(--devc-color-card-bg);
+    border: 1px solid var(--devc-color-card-border);
+    border-radius: 10px;
+    display: grid;
+    grid-gap: 10px;
+}
+
+.devc-dialog-card h2{
+    color: var(--devc-color-font-primary);
+    font-size: 20px;
+}
