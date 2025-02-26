@@ -331,3 +331,9 @@ main{
     color: var(--devc-color-font-primary);
     font-size: 20px;
 }
+
+.devc-dialog-btn-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}

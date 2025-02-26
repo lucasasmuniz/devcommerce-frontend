@@ -10,6 +10,7 @@ import ButtonNextPage from '../../../components/ButtonNextPage';
 import { Link } from 'react-router-dom';
 import ButtonInverse from '../../../components/ButtonInverse';
 import DialogInfo from '../../../components/DialogInfo';
+import DialogConfirmation from '../../../components/DialogConfirmation';
 
 type QueryParams = {
     page: number,
@@ -27,9 +28,14 @@ export default function ProductsListing() {
         page: 0
     })
 
-    const [dialogInfo, setDialogInfo] = useState({
+    const [dialogInfoData, setDialogInfoData] = useState({
         visiable: false,
         message: "Operação com sucesso!"
+    })
+
+    const [dialogConfirmationData, setDialogConfirmationData] = useState({
+        visiable: false,
+        message: "Tem Certeza?"
     })
 
     useEffect(() => {
@@ -50,8 +56,17 @@ export default function ProductsListing() {
         setQueryParams({ ...queryParams, page: queryParams.page + 1 });
     }
 
-    function handleDialogInfoClose(){
-        setDialogInfo({...dialogInfo, visiable:false});
+    function handleDialogInfoClose() {
+        setDialogInfoData({ ...dialogInfoData, visiable: false });
+    }
+
+    function handleOnClickDelete() {
+        setDialogConfirmationData({ ...dialogConfirmationData, visiable: true })
+    }
+
+    function handleDialogConfirmAnswer(answer: boolean){
+        console.log("Resposta", answer);
+        setDialogConfirmationData({ ...dialogConfirmationData, visiable: false })
     }
 
     return (
@@ -88,7 +103,7 @@ export default function ProductsListing() {
                                         <td className="devc-tb-768">R$ {item.price}</td>
                                         <td className="dsc-txt-left">{item.name}</td>
                                         <td><img className="devc-product-listing-btn" src={penIcon} alt="Editar" /></td>
-                                        <td><img className="devc-product-listing-btn" src={trashIcon} alt="Apagar" /></td>
+                                        <td><img className="devc-product-listing-btn" onClick={handleOnClickDelete} src={trashIcon} alt="Apagar" /></td>
                                     </tr>
                                 ))
                             }
@@ -107,8 +122,12 @@ export default function ProductsListing() {
             </main>
 
             {
-                dialogInfo.visiable &&
-                <DialogInfo message={dialogInfo.message} onDialogClose={handleDialogInfoClose}/>
+                dialogInfoData.visiable &&
+                <DialogInfo message={dialogInfoData.message} onDialogClose={handleDialogInfoClose} />
+            }
+            {
+                dialogConfirmationData.visiable &&
+                <DialogConfirmation message={dialogConfirmationData.message} onDialogAnswer={handleDialogConfirmAnswer} />
             }
         </>
     );
