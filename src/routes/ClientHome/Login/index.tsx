@@ -1,28 +1,41 @@
 import { useContext, useState } from 'react';
 import './styles.css';
 import * as authService from '../../../services/auth-service.ts';
+import * as forms from '../../../utils/forms.ts'
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../../utils/context-token.ts';
-
-type FormData = {
-    username:string,
-    password:string
-}
+import FormInput from '../../../components/FormInput/index.tsx';
 
 export default function Login() {
 
     const navigate = useNavigate();
 
-    const [formData,setFormData] = useState<FormData>({
-        username: "",
-        password: ""
+    const [formData, setFormData] = useState<any>({
+        username: {
+            value: "",
+            id: "username",
+            name: "username",
+            type: "text",
+            placeholder: "Email",
+            validation: function (value: string) {
+                return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
+            },
+            message: "Favor informar um email válido",
+        },
+        password: {
+            value: "",
+            id: "password",
+            name: "password",
+            type: "password",
+            placeholder: "Senha",
+        }
     })
 
-    const {setContextTokenPayload} = useContext(ContextToken);
+    const { setContextTokenPayload } = useContext(ContextToken);
 
-    function handleSubmit(event:any){
+    function handleSubmit(event: any) {
         event.preventDefault();
-        authService.loginRequest(formData)
+        authService.loginRequest({ username: formData.username.value, password: formData.password.value })
             .then((response) => {
                 authService.saveAccessToken(response.data.access_token);
                 setContextTokenPayload(authService.getAccessTokenPayload());
@@ -33,10 +46,8 @@ export default function Login() {
             })
     }
 
-    function handleOnChangeInput(event:any){
-        const name = event.target.name;
-        const value = event.target.value;
-        setFormData({...formData, [name]: value})
+    function handleOnChangeInput(event: any) {
+        setFormData(forms.update(formData, event.target.name, event.target.value));
     }
 
     return (
@@ -47,12 +58,20 @@ export default function Login() {
                         <h2>Login</h2>
                         <div className="devc-form-control-container">
                             <div className="devc-form-email-container">
-                                <input name="username" value={formData.username} onChange={handleOnChangeInput} className="devc-form-input" type="text" placeholder="Email" />
-                                    <div className="devc-form-error"></div>
+                                <FormInput
+                                    {...formData.username}
+                                    className="devc-form-input"
+                                    onChange={handleOnChangeInput}
+                                />
+                                <div className="devc-form-error"></div>
                             </div>
                             <div className="devc-form-password-container">
-                                <input name="password" value={formData.password} onChange={handleOnChangeInput} className="devc-form-input" type="password" placeholder="Senha" />
-                                    <div className="devc-form-error"></div>
+                                <FormInput
+                                    {...formData.password}
+                                    className="devc-form-input"
+                                    onChange={handleOnChangeInput}
+                                />
+                                <div className="devc-form-error"></div>
                             </div>
                         </div>
                         <button type="submit" className="devc-btn devc-btn-blue">Entrar</button>
