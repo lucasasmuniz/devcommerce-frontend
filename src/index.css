@@ -273,19 +273,13 @@ main{
 }
 
 .devc-form-input::placeholder{
+    font-size: 12px;
     color: var(--devc-color-font-placeholder);
 }
 
-.devc-select:invalid{
-    color: var(--devc-color-font-placeholder);
-}
-
-.devc-select option[disabled]{
-    display: none;
-}
-
-.devc-select option{
-    color: var(--devc-color-font-primary);
+.devc-form-select{
+    padding: 0;
+    height: unset;
 }
 
 .devc-textarea{

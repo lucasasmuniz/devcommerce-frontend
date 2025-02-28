@@ -5,13 +5,19 @@ import ButtonInverse from "../../../components/ButtonInverse";
 import FormInput from "../../../components/FormInput";
 import * as forms from '../../../utils/forms.ts';
 import * as productService from '../../../services/product-services.ts';
+import * as categoryService from '../../../services/category-service.ts';
 import FormTextArea from "../../../components/FormTextArea/index.tsx";
+import { CategoryDTO } from "../../../models/category.ts";
+import FormSelect from "../../../components/FormSelect/index.tsx";
+import { selectStyles } from "../../../utils/select.ts";
 
 export default function ProductForm() {
 
     const params = useParams();
 
     const isEditing = params.productId !== "create";
+
+    const [categories, setCategories] = useState<CategoryDTO[]>([]);
 
     const [formData, setFormData] = useState<any>({
         name: {
@@ -53,8 +59,25 @@ export default function ProductForm() {
                 return name.length >= 10;
             },
             message: "Favor informar uma descrição com ao menos 10 caracteres"
-        }
+        },
+        categories: {
+            value: [],
+            id: "categories",
+            name: "categories",
+            placeholder: "Categorias",
+            validation: function (value: CategoryDTO[]) {
+                return value.length > 0;
+            },
+            message: "Favor informar ao menos 1 categoria"
+        },
     })
+
+    useEffect(() => {
+        categoryService.findAll()
+            .then(response => {
+                setCategories(response.data);
+            })
+    }, [])
 
     useEffect(() => {
         if (isEditing) {
@@ -69,7 +92,7 @@ export default function ProductForm() {
         setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
     }
 
-    function handleTurnDirty(name: string){
+    function handleTurnDirty(name: string) {
         setFormData(forms.toDirtyAndValidate(formData, name));
     }
 
@@ -104,6 +127,23 @@ export default function ProductForm() {
                                     onTurnDirty={handleTurnDirty}
                                     onChange={handleOnChangeInput}
                                 />
+                            </div>
+                            <div className="devc-mb-20">
+                                <FormSelect
+                                    {...formData.categories}
+                                    options={categories}
+                                    onChange={(obj: any) => {
+                                        const newFormData = forms.updateAndValidate(formData, "categories", obj);
+                                        setFormData(newFormData);
+                                    }}
+                                    styles={selectStyles}
+                                    isMulti
+                                    getOptionLabel={(obj: any) => obj.name}
+                                    getOptionValue={(obj: any) => String(obj.id)}
+                                    onTurnDirty={handleTurnDirty}
+                                    className="devc-form-input devc-form-select"
+                                />
+                                <p className="devc-form-error">{formData.categories.message}</p>
                             </div>
                             <div className="devc-mb-20">
                                 <FormTextArea
