@@ -10,6 +10,8 @@ export default function Login() {
 
     const navigate = useNavigate();
 
+    const [submitResponseFail, setSubmitResponseFail] = useState(false);
+
     const [formData, setFormData] = useState<any>({
         username: {
             value: "",
@@ -35,14 +37,23 @@ export default function Login() {
 
     function handleSubmit(event: any) {
         event.preventDefault();
+
+        setSubmitResponseFail(false);
+
+        const newFormData = forms.toDirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(newFormData)) {
+            setFormData(newFormData);
+            return
+        }
+
         authService.loginRequest(forms.toValues(formData))
             .then((response) => {
                 authService.saveAccessToken(response.data.access_token);
                 setContextTokenPayload(authService.getAccessTokenPayload());
                 navigate("/catalog");
             })
-            .catch((error) => {
-                console.log("Erro na autorização", error);
+            .catch(() => {
+                setSubmitResponseFail(true);
             })
     }
 
@@ -53,7 +64,6 @@ export default function Login() {
     function handleTurnDirty(name: string){
         setFormData(forms.toDirtyAndValidate(formData, name));
     }
-
 
     return (
         <main>
@@ -80,6 +90,12 @@ export default function Login() {
                                 />
                                 <div className="devc-form-error"></div>
                             </div>
+
+                            {
+                                submitResponseFail &&
+                                <div className='devc-form-global-error'>Usuário ou senha inválidos</div>
+                            }
+
                         </div>
                         <button type="submit" className="devc-btn devc-btn-blue">Entrar</button>
                     </form>

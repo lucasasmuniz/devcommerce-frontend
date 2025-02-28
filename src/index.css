@@ -267,6 +267,14 @@ main{
     max-height: 15px;
 }
 
+.devc-form-global-error{
+    border: 1px solid var(---devc-color-input-error);
+    color: var(---devc-color-input-error);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+}
 
 .devc-form-input:focus{
     outline: none;
