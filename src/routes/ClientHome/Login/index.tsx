@@ -62,16 +62,16 @@ export default function Login() {
                     <form className="devc-form-login" onSubmit={handleSubmit}>
                         <h2>Login</h2>
                         <div className="devc-form-control-container">
-                            <div className="devc-form-email-container">
+                            <div className="devc-form-email-container devc-mb-20">
                                 <FormInput
                                     {...formData.username}
                                     className="devc-form-input"
                                     onTurnDirty={handleTurnDirty}
                                     onChange={handleOnChangeInput}
                                 />
-                                <div className="devc-form-error"></div>
+                                <p className="devc-form-error">{formData.username.message}</p>
                             </div>
-                            <div className="devc-form-password-container">
+                            <div className="devc-form-password-container devc-mb-20">
                                 <FormInput
                                     {...formData.password}
                                     className="devc-form-input"
