@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
 import * as productService from '../../../services/product-services';
 import ButtonNextPage from '../../../components/ButtonNextPage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ButtonInverse from '../../../components/ButtonInverse';
 import DialogInfo from '../../../components/DialogInfo';
 import DialogConfirmation from '../../../components/DialogConfirmation';
@@ -18,6 +18,8 @@ type QueryParams = {
 }
 
 export default function ProductsListing() {
+
+    const navigate = useNavigate();
 
     const [isLastPage, setIsLastPage] = useState(false);
 
@@ -63,6 +65,10 @@ export default function ProductsListing() {
 
     function handleOnClickDelete(productId: number) {
         setDialogConfirmationData({ ...dialogConfirmationData, visiable: true, productId })
+    }
+
+    function handleClickUpdate(productId : number){
+        navigate(`/admin/products/${productId}`);
     }
 
     function handleDialogConfirmAnswer(answer: boolean, productId: number) {
@@ -112,7 +118,7 @@ export default function ProductsListing() {
                                         <td><img className="devc-product-listing-img" src={item.imgUrl} alt={item.name} /></td>
                                         <td className="devc-tb-768">R$ {item.price}</td>
                                         <td className="dsc-txt-left">{item.name}</td>
-                                        <td><img className="devc-product-listing-btn" src={penIcon} alt="Editar" /></td>
+                                        <td><img className="devc-product-listing-btn" onClick={() => handleClickUpdate(item.id)} src={penIcon} alt="Editar" /></td>
                                         <td><img className="devc-product-listing-btn" onClick={() => handleOnClickDelete(item.id)} src={trashIcon} alt="Apagar" /></td>
                                     </tr>
                                 ))

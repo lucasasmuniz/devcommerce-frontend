@@ -96,11 +96,20 @@ export default function ProductForm() {
         setFormData(forms.toDirtyAndValidate(formData, name));
     }
 
+    function handleSubmit(event: any){
+        event.preventDefault();
+        const newFormData = forms.toDirtyAndValidateAll(formData);
+        if (forms.hasAnyInvalid(newFormData)){
+            setFormData(newFormData);
+            return
+        }
+    }
+
     return (
         <main>
             <section id="product-form-section" className="devc-container devc-pd-top-20">
                 <div className="devc-product-form-container devc-card">
-                    <form className="devc-form-product">
+                    <form className="devc-form-product" onSubmit={handleSubmit}>
                         <h2>Dados do produto</h2>
                         <div className="devc-form-control-container">
                             <div className="devc-mb-20">
@@ -110,6 +119,7 @@ export default function ProductForm() {
                                     onTurnDirty={handleTurnDirty}
                                     onChange={handleOnChangeInput}
                                 />
+                                <p className="devc-form-error">{formData.name.message}</p>
                             </div>
                             <div className="devc-mb-20">
                                 <FormInput
