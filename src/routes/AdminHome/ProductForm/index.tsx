@@ -1,5 +1,5 @@
 import "./styles.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ButtonInverse from "../../../components/ButtonInverse";
 import FormInput from "../../../components/FormInput";
@@ -12,6 +12,8 @@ import FormSelect from "../../../components/FormSelect/index.tsx";
 import { selectStyles } from "../../../utils/select.ts";
 
 export default function ProductForm() {
+
+    const navigate = useNavigate();
 
     const params = useParams();
 
@@ -96,13 +98,33 @@ export default function ProductForm() {
         setFormData(forms.toDirtyAndValidate(formData, name));
     }
 
-    function handleSubmit(event: any){
+    function handleSubmit(event: any) {
         event.preventDefault();
         const newFormData = forms.toDirtyAndValidateAll(formData);
-        if (forms.hasAnyInvalid(newFormData)){
+        if (forms.hasAnyInvalid(newFormData)) {
             setFormData(newFormData);
             return
         }
+
+        const requestBody = forms.toValues(formData);
+
+        if (isEditing) {
+            requestBody.id = params.productId;
+        }
+
+        const request = isEditing
+            ? productService.updateProduct(requestBody)
+            : productService.saveProduct(requestBody);
+
+        request
+            .then(() => {
+                navigate("/admin/products");
+            })
+            .catch(error => {
+                const newFormData = forms.setBackendErrors(formData, error.response.data.errors);
+                setFormData(newFormData);
+            })
+
     }
 
     return (
