@@ -5,6 +5,7 @@ import ButtonInverse from "../../../components/ButtonInverse";
 import FormInput from "../../../components/FormInput";
 import * as forms from '../../../utils/forms.ts';
 import * as productService from '../../../services/product-services.ts';
+import FormTextArea from "../../../components/FormTextArea/index.tsx";
 
 export default function ProductForm() {
 
@@ -41,6 +42,17 @@ export default function ProductForm() {
             name: "imgUrl",
             type: "text",
             placeholder: "Imagem",
+        },
+        description: {
+            value: "",
+            id: "description",
+            name: "description",
+            type: "text",
+            placeholder: "Descrição",
+            validation: function (name: string) {
+                return name.length >= 10;
+            },
+            message: "Favor informar uma descrição com ao menos 10 caracteres"
         }
     })
 
@@ -92,6 +104,15 @@ export default function ProductForm() {
                                     onTurnDirty={handleTurnDirty}
                                     onChange={handleOnChangeInput}
                                 />
+                            </div>
+                            <div className="devc-mb-20">
+                                <FormTextArea
+                                    {...formData.description}
+                                    className="devc-form-input devc-textarea"
+                                    onTurnDirty={handleTurnDirty}
+                                    onChange={handleOnChangeInput}
+                                />
+                                <p className="devc-form-error">{formData.description.message}</p>
                             </div>
                         </div>
                         <div className="devc-form-btn-container">
