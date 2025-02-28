@@ -1,6 +1,62 @@
 import "./styles.css";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import ButtonInverse from "../../../components/ButtonInverse";
+import FormInput from "../../../components/FormInput";
+import * as forms from '../../../utils/forms.ts';
+import * as productService from '../../../services/product-services.ts';
 
 export default function ProductForm() {
+
+    const params = useParams();
+
+    const isEditing = params.productId !== "create";
+
+    const [formData, setFormData] = useState<any>({
+        name: {
+            value: "",
+            id: "name",
+            name: "name",
+            type: "text",
+            placeholder: "Nome",
+        },
+        price: {
+            value: "",
+            id: "price",
+            name: "price",
+            type: "number",
+            placeholder: "Preço",
+            validation: function (value: any) {
+                return Number(value) > 0;
+            },
+            message: "Favor informar um valor positivo"
+        },
+        imgUrl: {
+            value: "",
+            id: "imgUrl",
+            name: "imgUrl",
+            type: "text",
+            placeholder: "Imagem",
+        }
+    })
+
+    useEffect(() => {
+        if (isEditing) {
+            productService.findById(Number(params.productId))
+                .then((response) => {
+                    setFormData(forms.updateAll(formData, response.data))
+                })
+        }
+    }, [])
+
+    function handleOnChangeInput(event: any) {
+        setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
+    }
+
+    function handleTurnDirty(name: string){
+        setFormData(forms.toDirtyAndValidate(formData, name));
+    }
+
     return (
         <main>
             <section id="product-form-section" className="devc-container devc-pd-top-20">
@@ -8,31 +64,38 @@ export default function ProductForm() {
                     <form className="devc-form-product">
                         <h2>Dados do produto</h2>
                         <div className="devc-form-control-container">
-                            <div className="devc-form-email-container">
-                                <input className="devc-form-input" type="text" placeholder="Nome" />
-                                    <div className="devc-form-error"></div>
+                            <div className="devc-mb-20">
+                                <FormInput
+                                    {...formData.name}
+                                    className="devc-form-input"
+                                    onTurnDirty={handleTurnDirty}
+                                    onChange={handleOnChangeInput}
+                                />
                             </div>
-                            <div className="devc-form-price-container">
-                                <input className="devc-form-input" type="number" placeholder="Preço" />
-                                    <div className="devc-form-error"></div>
+                            <div className="devc-mb-20">
+                                <FormInput
+                                    {...formData.price}
+                                    className="devc-form-input"
+                                    onTurnDirty={handleTurnDirty}
+                                    onChange={handleOnChangeInput}
+                                />
+                                <p className="devc-form-error">{formData.price.message}</p>
                             </div>
-                            <div className="devc-form-image-container">
-                                <input className="devc-form-input" type="text" placeholder="Imagem" />
-                                    <div className="devc-form-error"></div>
-                            </div>
-                            <div className="devc-form-category-container">
-                                <select className="devc-select devc-form-input" required>
-                                    <option value="" disabled selected>Categorias</option>
-                                    <option value="1">Valor1</option>
-                                    <option value="2">Valor2</option>
-                                </select>
-                            </div>
-                            <div className="devc-form-description-container">
-                                <textarea className="devc-textarea devc-form-input" placeholder="Descrição"></textarea>
+                            <div className="devc-mb-20">
+                                <FormInput
+                                    {...formData.imgUrl}
+                                    className="devc-form-input"
+                                    onTurnDirty={handleTurnDirty}
+                                    onChange={handleOnChangeInput}
+                                />
                             </div>
                         </div>
                         <div className="devc-form-btn-container">
-                            <button type="reset" className="devc-btn devc-btn-white">Cancelar</button>
+                            <div>
+                                <Link to={"/admin/products"}>
+                                    <ButtonInverse text="Cancelar" />
+                                </Link>
+                            </div>
                             <button type="submit" className="devc-btn devc-btn-blue">Salvar</button>
                         </div>
                     </form>

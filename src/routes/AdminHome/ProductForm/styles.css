@@ -29,16 +29,6 @@
     text-transform: uppercase;
 }
 
-.devc-form-border-error{
-    border: 1px solid var(---devc-color-input-error);
-}
-
-.devc-form-error{
-    font-size: 12px;
-    color: var(---devc-color-input-error);
-    margin-left: 4px;
-}
-
 @media(min-width:576px){
     .devc-form-product h2{
         font-size: 24px;

@@ -47,8 +47,13 @@ export default function Login() {
     }
 
     function handleOnChangeInput(event: any) {
-        setFormData(forms.update(formData, event.target.name, event.target.value));
+        setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
     }
+
+    function handleTurnDirty(name: string){
+        setFormData(forms.toDirtyAndValidate(formData, name));
+    }
+
 
     return (
         <main>
@@ -61,6 +66,7 @@ export default function Login() {
                                 <FormInput
                                     {...formData.username}
                                     className="devc-form-input"
+                                    onTurnDirty={handleTurnDirty}
                                     onChange={handleOnChangeInput}
                                 />
                                 <div className="devc-form-error"></div>
@@ -69,6 +75,7 @@ export default function Login() {
                                 <FormInput
                                     {...formData.password}
                                     className="devc-form-input"
+                                    onTurnDirty={handleTurnDirty}
                                     onChange={handleOnChangeInput}
                                 />
                                 <div className="devc-form-error"></div>

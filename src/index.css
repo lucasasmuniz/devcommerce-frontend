@@ -120,7 +120,7 @@ nav{
 }
 
 header h1{
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 nav img{
@@ -221,8 +221,8 @@ main{
 /* search bar styles */
 
 @media(min-width: 576px){
-    html,body{
-        font-size: 24px
+    header h1{
+        font-size: 24px;
     }
     .devc-btn-container{
         width: 220px;
@@ -236,8 +236,8 @@ main{
 /* form styles */
 
 .devc-form-control-container{
-    display: grid;
-    grid-gap: 20px 0;
+    display: flex;
+    flex-direction: column;
     margin: 20px 0;
     width: 100%;
 }
@@ -250,6 +250,23 @@ main{
     border-radius: 4px;
     border: 1px solid var(--devc-color-input-border);
 }
+
+.devc-form-input[data-invalid="true"][data-dirty="true"]{
+    border: 1px solid var(---devc-color-input-error);
+}
+
+.devc-form-input[data-dirty="true"][data-invalid="true"] ~ p{
+    display: unset;
+}
+
+.devc-form-error{
+    font-size: 12px;
+    color: var(---devc-color-input-error);
+    margin-left: 4px;
+    display: none;
+    max-height: 15px;
+}
+
 
 .devc-form-input:focus{
     outline: none;

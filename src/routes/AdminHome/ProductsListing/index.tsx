@@ -87,8 +87,8 @@ export default function ProductsListing() {
                         <h2>Cadastro dos produtos</h2>
                     </div>
                     <div className="devc-btn-container devc-mb-20 ">
-                        <Link to="/">
-                            <ButtonInverse text={"Início"} />
+                        <Link to="/admin/products/create">
+                            <ButtonInverse text={"Novo"} />
                         </Link>
                     </div>
                     <SearchBar onSearch={handleSearch} />
